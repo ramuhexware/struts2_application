@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <!-- Configure devMode and allowed characters -->
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.action.extension" value="action,," />
+
+    <package name="default" namespace="/" extends="struts-default" strict-method-invocation="false">
+        
+        <!-- Default Welcome Action: Redirects to Dashboard -->
+        <action name="" class="com.example.employee.action.DashboardAction">
+            <result name="success">/WEB-INF/views/dashboard.jsp</result>
+        </action>
+
+        <!-- Dashboard Action -->
+        <action name="dashboard" class="com.example.employee.action.DashboardAction">
+            <result name="success">/WEB-INF/views/dashboard.jsp</result>
+        </action>
+
+        <!-- Employee Management Actions -->
+        <action name="listEmployees" class="com.example.employee.action.EmployeeAction" method="list">
+            <result name="success">/WEB-INF/views/employee-list.jsp</result>
+            <allowed-methods>list</allowed-methods>
+        </action>
+
+        <action name="viewEmployee" class="com.example.employee.action.EmployeeAction" method="detail">
+            <result name="success">/WEB-INF/views/employee-detail.jsp</result>
+            <allowed-methods>detail</allowed-methods>
+        </action>
+
+        <action name="addEmployee" class="com.example.employee.action.EmployeeAction" method="add">
+            <result name="success">/WEB-INF/views/employee-form.jsp</result>
+            <allowed-methods>add</allowed-methods>
+        </action>
+
+        <action name="editEmployee" class="com.example.employee.action.EmployeeAction" method="edit">
+            <result name="success">/WEB-INF/views/employee-form.jsp</result>
+            <allowed-methods>edit</allowed-methods>
+        </action>
+
+        <action name="saveEmployee" class="com.example.employee.action.EmployeeAction" method="save">
+            <result name="success" type="redirectAction">
+                <param name="actionName">listEmployees</param>
+            </result>
+            <result name="input">/WEB-INF/views/employee-form.jsp</result>
+            <allowed-methods>save</allowed-methods>
+        </action>
+
+        <action name="deleteEmployee" class="com.example.employee.action.EmployeeAction" method="delete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">listEmployees</param>
+            </result>
+            <allowed-methods>delete</allowed-methods>
+        </action>
+    </package>
+</struts>
